@@ -1,13 +1,14 @@
 var express = require('express')
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
+var cors = require('cors')
 
-var User = require('./models/user')
-
-var author = require('./services/userService')
+var info = require('./services/personalInfoService')
+var user = require('./services/userService')
 
 var app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0-cj6jh.gcp.mongodb.net/test?retryWrites=true', (error) => {
@@ -16,6 +17,7 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0-cj6jh.gcp.mongodb.net/test?
     }
 })
 
-app.use('/author', author.router)
+app.use('/info', info.router)
+app.use('/user', user.router)
 
-app.listen(8080)
+app.listen(8080);
