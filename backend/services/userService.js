@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+var jwt = require('jwt-simple')
 
 var User = require('../models/user')
 
@@ -11,7 +12,7 @@ router.post('/register',(request,response)=>{
         if(error){
             console.log('Error saving the user')
         }
-        response.sendStatus(201)
+        response.status(201).send({message:'Created'})
     })
 })
 
@@ -25,8 +26,25 @@ router.post('/login', async (request,response)=>{
         return response.status(401).send({message:'Email or password invalid'})
     }
 
-    return response.sendStatus(200)
+    var payload = {}
+    var token = jwt.encode(payload,'12345')
+
+    return response.status(200).send({token})
 })
 
-var user = {router}
+var user = {router,checkAuthenticated:(request,response,next)=>{
+    if(request.header('authorization')){
+        return response.status(401).send({message:'unauthorized. No authorization'})
+    }
+
+    var token = request.header("authorization").split(' ')[1]
+
+    var payload = jwt.decode(token,'12345')
+
+    if(!payload){
+        return response.status(401).send({message:'unauthorized. Token not valid '})
+    }
+
+    next()
+}}
 module.exports = user 
