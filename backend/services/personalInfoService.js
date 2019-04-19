@@ -4,7 +4,7 @@ var router = express.Router()
 var Info = require('../models/personalInformation')
 var User = require('./userService')
 
-router.post('/personalInformation', (request, response) => {
+router.post('/personalInformation',User.checkAuthenticated, (request, response) => {
     var info = new Info(request.body);
     info.save((error, result) => {
         if (error) {

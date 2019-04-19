@@ -13,7 +13,7 @@ export class AuthenticateService {
   constructor(private http: HttpClient) { }
 
   path = environment.path;
-  TOKEN_KEY = "token";
+  TOKEN_KEY = 'token';
 
   register(registerUser: RegisterUser) {
     let headers = new HttpHeaders();

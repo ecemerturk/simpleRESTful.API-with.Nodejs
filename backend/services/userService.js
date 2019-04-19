@@ -33,16 +33,16 @@ router.post('/login', async (request,response)=>{
 })
 
 var user = {router,checkAuthenticated:(request,response,next)=>{
-    if(request.header('authorization')){
-        return response.status(401).send({message:'unauthorized. No authorization'})
+    if(!request.header('authorization')){
+        return response.status(401).send({message:'Unauthorized. No Authorization Header'})
     }
+    
+    var token = requst.header('authorization').split(' ')[1]
 
-    var token = request.header("authorization").split(' ')[1]
-
-    var payload = jwt.decode(token,'12345')
+    var payload =jwt.decode(token,'12345')
 
     if(!payload){
-        return response.status(401).send({message:'unauthorized. Token not valid '})
+        return response.status(401).send({message:'Unauthorized. Token is not valid'})
     }
 
     next()

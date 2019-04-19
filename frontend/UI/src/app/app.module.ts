@@ -14,11 +14,11 @@ import { AuthenticateService } from './services/authenticate.service';
 import { PersonalInformationService } from './services/personal-information.service';
 
 const routes = [
-  { path: 'personalInformation', component: PersonalInformationComponent },
+  { path: 'info', component: PersonalInformationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '', component: PersonalInformationComponent, patmach: 'full' }
-]
+];
 
 @NgModule({
   declarations: [
