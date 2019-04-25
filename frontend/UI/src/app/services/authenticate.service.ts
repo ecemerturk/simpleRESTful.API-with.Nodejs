@@ -44,6 +44,6 @@ export class AuthenticateService {
   }
 
   get token() {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 }

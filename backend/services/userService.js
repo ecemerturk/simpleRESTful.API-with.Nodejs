@@ -33,6 +33,8 @@ router.post('/login', async (request,response)=>{
 })
 
 var user = {router,checkAuthenticated:(request,response,next)=>{
+    var a = request.header();
+    console.log(a)
     if(!request.header('authorization')){
         return response.status(401).send({message:'Unauthorized. No Authorization Header'})
     }
